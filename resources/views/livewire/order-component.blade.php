@@ -1,8 +1,9 @@
-<div class="grid xs:grid-cols-none grid-cols-2 gap-2 p-5">
+<div class="grid xs:grid-cols-none grid-cols-2 gap-2 p-5" x-data="{showprint: $wire.showprint}">
+    
     
     <div>
         <input type="text" wire:model="search" class="px-3 py-2 w-full lg:w-1/2 mb-5 rounded-lg border-2 border-gray-300 focus:outline-black" placeholder="search">
-        <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4 overflow-y-scroll">   
+        <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">   
             <!-- Card -->
             @foreach ($menus as $item)
                 <button wire:key="{{ $item->id }}" wire:click="add({{ $item->id }})" class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800 outline-none focus:outline-none">
@@ -33,21 +34,21 @@
             @endif
         </div>
         <h4 class="mb-4 text-lg font-semibold text-gray-600 dark:text-gray-300">Order</h4>
-        <table class="w-full whitespace-no-wrap mb-10">
+        <table class="whitespace-no-wrap mb-10 w-full">
             <thead>
                 <tr
-                    class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                    <th class="px-2 py-3">Nama menu</th>
+                    class="text-xs font-semibold tracking-tight text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                    <th class="px-2 py-3 break-words w-auto h-auto">Nama menu</th>
                     <th class="px-2 py-3 text-center">Jumlah</th>
                     <th class="px-2 py-3 text-right">Harga</th>
-                    <th class="px-2 py-3 text-right"></th>
+                    <th class="py-3 text-right"></th>
                 </tr>
             </thead>
             <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
                 @foreach ($tmp as $item)
                 <tr wire:key="{{ 'tmp'.$item->id }}" class="text-gray-700 dark:text-gray-400">
-                    <td class="px-2 py-3 text-sm">
-                        {{ $item->nama_menu }}
+                    <td class="px-2 py-3 text-sm h-10 break-words ">
+                            {{ $item->nama_menu }}
                     </td>
                     <td class="px-2 py-3 text-sm text-center">
                         <button wire:click="decrease({{ $item->id }})" class="py-1 px-3 bg-red-700 rounded-md text-white">-</button>
@@ -57,12 +58,10 @@
                     <td class="px-2 py-3 text-sm text-right">
                         {{ number_format($item->harga,0,',','.') }}
                     </td>
-                    <td class="px-2 py-3">
-                        <div class="flex items-center space-x-4 text-sm">
-                            <button
-                
+                    <td class=" y-3 text-right">
+                        <button
                             wire:click="delete({{ $item->id }})"
-                                class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                                class="flex items-center justify-between py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                                 aria-label="Delete">
                                 <svg class="w-5 h-5" aria-hidden="true" fill="currentColor"
                                     viewBox="0 0 20 20">
@@ -70,7 +69,6 @@
                                         d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
                                         clip-rule="evenodd"></path>
                                 </svg>
-                            </button>
                         </div>
                     </td>
                 </tr>
@@ -122,6 +120,25 @@
             <button wire:click="save" class="w-full px-5 py-3 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg sm:px-4 sm:py-2 active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
                 Save
             </button>
+        </div>
+    </div>
+
+    
+    <div x-show="$wire.showprint" class="flex flex-col p-8 bg-white shadow-md hover:shodow-lg rounded-2xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg"
+                    class="w-16 h-16 rounded-2xl p-3 border border-blue-200 text-blue-600 bg-blue-100" fill="none"
+                    viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <div class="flex flex-col ml-3">
+                    <div class="font-medium leading-none">Print Nota ?</div>
+                </div>
+            </div>
+            <a href="/invoice/{{ $invoice_id }}" target="_blank" mat-icon-button="" @click="$wire.showprint = false" @click.away="$wire.showprint=false" class="flex-no-shrink bg-white px-5 ml-4 py-2 text-sm shadow-sm font-medium 
+            tracking-wider border-2 border-green-400 text-green-400 rounded-full hover:text-white hover:bg-green-500">Print</a>
         </div>
     </div>
 </div>

@@ -18,6 +18,8 @@ class OrderComponent extends Component
     public $bayar;
     public $kembalian;
     public $pembayaran_id;
+    public $showprint;
+    public $invoice_id;
 
     public function render()
     {
@@ -135,7 +137,7 @@ class OrderComponent extends Component
             $pembayaran['saldo'] = $pembayaran['saldo'] + $this->total;
             $pembayaran->save();
 
-            $datatmp = TmpOrder::where('user_id', Auth()->user()->id);
+            $datatmp = TmpOrder::where('user_id', Auth()->user()->id)->get();
 
             foreach($datatmp as $tmp){
 
@@ -151,6 +153,8 @@ class OrderComponent extends Component
             DB::commit();
 
             $this->resetfield();
+            $this->showprint = true;
+            $this->invoice_id = $master->id;
         
         }catch(Exception $e){
             DB::rollback();
