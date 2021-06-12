@@ -18,6 +18,7 @@ class CreateTmpOrdersTable extends Migration
             $table->foreignId('menu_id')->constrained()->ondelete('cascade');
             $table->integer('jumlah');
             $table->double('harga');
+            $table->foreignId('user_id')->constrained()->ondelete('cascade');
             $table->timestamps();
         });
     }

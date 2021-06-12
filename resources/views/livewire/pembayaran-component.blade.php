@@ -5,7 +5,7 @@
 
     <!-- With actions -->
     <h4 class="mb-4 text-lg font-semibold text-gray-600 dark:text-gray-300">
-        Data menu
+        Data pembayaran
     </h4>
 
     <div class="w-full overflow-hidden rounded-lg shadow-xs p-3">
@@ -22,25 +22,29 @@
             </div>
 
             <button @click="open = true" class="px-4 py-2 mb-4 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
-                Tambah menu
+                Tambah pembayaran
             </button>
             <table class="w-full whitespace-no-wrap">
                 <thead>
                     <tr
                         class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                        <th class="px-4 py-3">Nama menu</th>
-                        <th class="px-4 py-3">Harga</th>
+                        <th class="px-4 py-3">Nama pembayaran</th>
+                        <th class="px-4 py-3">Nomor Pelanggan</th>
+                        <th class="px-4 py-3">Nama Akun</th>
                         <th class="px-4 py-3">Actions</th>
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                    @foreach ($menu as $item)
+                    @foreach ($pembayaran as $item)
                     <tr wire:key="{{ $item->id }}" class="text-gray-700 dark:text-gray-400">
                         <td class="px-4 py-3 text-sm">
-                            {{ $item->nama_menu }}
+                            {{ $item->nama_pembayaran }}
                         </td>
                         <td class="px-4 py-3 text-sm">
-                            {{ number_format($item->harga,0,',','.') }}
+                            {{ $item->nomor_pelanggan }}
+                        </td>
+                        <td class="px-4 py-3 text-sm">
+                            {{ $item->nama_akun }}
                         </td>
                         <td class="px-4 py-3">
                             <div class="flex items-center space-x-4 text-sm">
@@ -77,7 +81,7 @@
         </div>
         <div
             class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
-            {{ $menu->links() }}
+            {{ $pembayaran->links() }}
         </div>
     </div>
 
@@ -96,36 +100,31 @@
             <div class="mt-4 mb-6">
                 <!-- Modal title -->
                 <p class="mb-3 text-lg font-semibold text-gray-700 dark:text-gray-300">
-                    Input menu
+                    Input pembayaran
                 </p>
                 <!-- Modal description -->
                 <label class="block text-sm mb-3">
-                    <span class="text-gray-700 dark:text-gray-400">Nama menu</span>
-                    <input wire:model="nama_menu" class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" placeholder="menu" />
-                    @error('nama_menu')
+                    <span class="text-gray-700 dark:text-gray-400">Nama pembayaran</span>
+                    <input wire:model="nama_pembayaran" class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" />
+                    @error('nama_pembayaran')
                     <span class="text-xs text-red-600 dark:text-red-400">
                         {{ $message }}
                     </span>
                     @enderror
                 </label>
                 <label class="block text-sm mb-3">
-                    <span class="text-gray-700 dark:text-gray-400">Category</span>
-                    <select wire:model="category_id" class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" >
-                        <option value="">-- Category --</option>
-                        @foreach ($categories as $item)
-                            <option value="{{ $item->id }}">{{ $item->category }}</option>
-                        @endforeach
-                    </select>
-                    @error('category_id')
+                    <span class="text-gray-700 dark:text-gray-400">Nomor Pelanggan</span>
+                    <input type="text" wire:model="nomor_pelanggan" class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input">
+                    @error('nomor_pelanggan')
                     <span class="text-xs text-red-600 dark:text-red-400">
                         {{ $message }}
                     </span>
                     @enderror
                 </label>
                 <label class="block text-sm mb-3">
-                    <span class="text-gray-700 dark:text-gray-400">Harga</span>
-                    <input wire:model="harga" class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" />
-                    @error('harga')
+                    <span class="text-gray-700 dark:text-gray-400">Nama Akun</span>
+                    <input wire:model="nama_akun" class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"/>
+                    @error('nama_akun')
                     <span class="text-xs text-red-600 dark:text-red-400">
                         {{ $message }}
                     </span>

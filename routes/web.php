@@ -4,6 +4,7 @@ use App\Http\Livewire\CategoryComponent;
 use App\Http\Livewire\IngredientComponent;
 use App\Http\Livewire\MenuComponent;
 use App\Http\Livewire\OrderComponent;
+use App\Http\Livewire\PembayaranComponent;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,8 +33,9 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     Route::get('bahan', IngredientComponent::class)->name('bahan');
     Route::get('menu', MenuComponent::class)->name('menu');
     Route::get('order', OrderComponent::class)->name('order');
+    Route::get('pembayaran', PembayaranComponent::class)->name('pembayaran');
     Route::view('forms', 'forms')->name('forms');
-    // Route::view('cards', 'cards')->name('cards');
+    Route::view('cards', 'cards')->name('cards');
     Route::view('charts', 'charts')->name('charts');
     Route::view('buttons', 'buttons')->name('buttons');
     Route::view('modals', 'modals')->name('modals');
