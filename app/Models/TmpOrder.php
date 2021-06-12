@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class DInvoice extends Model
+class TmpOrder extends Model
 {
     use HasFactory;
 }
