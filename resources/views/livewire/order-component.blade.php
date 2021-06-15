@@ -153,7 +153,7 @@
                     <div class="font-medium leading-none">Print Nota ?</div>
                 </div>
             </div>
-            <a href="/invoice/{{ $invoice_id }}" target="_blank" mat-icon-button="" @click="$wire.showprint = false" @click.away="$wire.showprint=false" class="flex-no-shrink bg-white px-5 ml-4 py-2 text-sm shadow-sm font-medium
+            <a href="/invoice/{{ encrypt($invoice_id) }}" target="_blank" mat-icon-button="" @click="$wire.showprint = false" @click.away="$wire.showprint=false" class="flex-no-shrink bg-white px-5 ml-4 py-2 text-sm shadow-sm font-medium
             tracking-wider border-2 border-green-400 text-green-400 rounded-full hover:text-white hover:bg-green-500">Print</a>
         </div>
     </div>
