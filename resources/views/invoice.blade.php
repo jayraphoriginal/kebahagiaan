@@ -71,7 +71,8 @@
 <body>
     <div class="container">
         <div class="header" style="margin-bottom: 30px;">
-            <h2>Kebahagiaan Kopi & Toast</h2>
+            <img src="{{ asset('/img/logogray.png') }}" width="100px"/>
+            <h4>Jl Amphibi, sekip ujung no 2205</h4>
         </div>
         <hr>
         <div class="flex-container-1">
