@@ -26,7 +26,7 @@ class MenuComponent extends Component
 
         $this->categories = Category::all();
 
-        return view('livewire.Menu-component',[ 
+        return view('livewire.menu-component',[ 
             'menu' => Menu::paginate(10),
         ]);
     }

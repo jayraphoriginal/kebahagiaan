@@ -20,14 +20,20 @@ class OrderComponent extends Component
     public $pembayaran_id;
     public $showprint;
     public $invoice_id;
+    public $disc;
+    Public $grandtotal;
 
     public function render()
     {
 
         $this->total = TmpOrder::where('user_id', Auth()->user()->id)->sum(DB::raw('jumlah*harga'));
+        $this->grandtotal = floatval($this->total) - (floatval($this->total) * floatval($this->disc) /100);
         $this->total = number_format(floatval(str_replace('.','',$this->total)),0,',','.');
+        $this->grandtotal = number_format(floatval(str_replace('.','', $this->grandtotal)),0,'.','.');
 
-        $this->kembalian = number_format(floatval(str_replace('.','',$this->bayar))- floatval(str_replace('.','',$this->total)),0,',','.');
+
+
+        $this->kembalian = number_format(floatval(str_replace('.','',$this->bayar))- floatval(str_replace('.','',$this->grandtotal)),0,',','.');
 
 
         if (empty($this->search)){
@@ -55,7 +61,7 @@ class OrderComponent extends Component
         if (count($tmpdata)>0){
             $tmp = TmpOrder::find($tmpdata[0]->id);
             $tmp['jumlah'] = $tmp['jumlah'] + 1;
-            $tmp->save(); 
+            $tmp->save();
         }else{
             $tmp = new TmpOrder();
             $tmp['menu_id'] = $id;
@@ -97,14 +103,14 @@ class OrderComponent extends Component
             $this->bayar=0;
         }
 
-        if (is_numeric($key)){          
+        if (is_numeric($key)){
             $this->bayar=str_replace('.','',$this->bayar);
             $this->bayar=number_format(floatval($this->bayar),0,',','.');
         }else{
             $this->bayar=str_replace($key,'',$this->bayar);
             $this->bayar=str_replace('.','',$this->bayar);
             $this->bayar=number_format(floatval($this->bayar),0,',','.');
-        }   
+        }
 
     }
 
@@ -113,6 +119,8 @@ class OrderComponent extends Component
         $this->bayar=floatval(str_replace('.','',$this->bayar));
         $this->kembalian=floatval(str_replace('.','',$this->kembalian));
         $this->total=floatval(str_replace('.','',$this->total));
+        $this->disc=floatval(str_replace('.','',$this->disc));
+        $this->grandtotal=floatval(str_replace('.','',$this->grandtotal));
 
         $this->validate([
             'bayar' => 'numeric|min:1000',
@@ -131,10 +139,12 @@ class OrderComponent extends Component
             $master['total'] = $this->total;
             $master['jumlah_bayar'] = $this->bayar;
             $master['kembalian'] = $this->kembalian;
+            $master['disc'] = $this->disc;
+            $master['grandtotal']=$this->grandtotal;
             $master->save();
 
             $pembayaran = Pembayaran::find($this->pembayaran_id);
-            $pembayaran['saldo'] = $pembayaran['saldo'] + $this->total;
+            $pembayaran['saldo'] = $pembayaran['saldo'] + $this->grandtotal;
             $pembayaran->save();
 
             $datatmp = TmpOrder::where('user_id', Auth()->user()->id)->get();
@@ -155,7 +165,7 @@ class OrderComponent extends Component
             $this->resetfield();
             $this->showprint = true;
             $this->invoice_id = $master->id;
-        
+
         }catch(Exception $e){
             DB::rollback();
         }
@@ -170,6 +180,8 @@ class OrderComponent extends Component
         $this->kembalian = '';
         $this->bayar = '';
         $this->pembayaran_id = '';
+        $this->grandtotal = '';
+        $this->disc ='';
 
     }
 
