@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Invoice</title>
     <style>
-       
+
        @media print {
         .hidden-print,
         .hidden-print * {
@@ -71,7 +71,7 @@
 <body>
     <div class="container">
         <div class="header" style="margin-bottom: 30px;">
-            <img src="{{ asset('/img/logo.png') }}"
+            <h2>Kebahagiaan Kopi & Toast</h2>
         </div>
         <hr>
         <div class="flex-container-1">
@@ -107,6 +107,8 @@
             <div>
                 <ul>
                     <li>Tipe</li>
+                    <li>Total</li>
+                    <li>Disc</li>
                     <li>Grand Total</li>
                     <li>Pembayaran</li>
                     <li>Kembalian</li>
@@ -116,6 +118,8 @@
                 <ul>
                     <li>{{ $order[0]->nama_pembayaran }} </li>
                     <li>Rp {{ number_format($order[0]->total) }} </li>
+                    <li>{{ number_format($order[0]->disc).' %' }} </li>
+                    <li>Rp {{ number_format($order[0]->grandtotal) }} </li>
                     <li>Rp {{ number_format($order[0]->jumlah_bayar) }}</li>
                     <li>Rp {{ number_format($order[0]->kembalian) }}</li>
                 </ul>
