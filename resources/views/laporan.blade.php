@@ -10,7 +10,6 @@
 
     <div class="w-full overflow-hidden rounded-lg shadow-xs p-3">
         <div class="w-full overflow-x-auto">
-
             <div>
                 @if (session()->has('message'))
                     <div class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
