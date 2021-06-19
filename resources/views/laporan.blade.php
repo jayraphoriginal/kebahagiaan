@@ -20,7 +20,13 @@
                 @endif
             </div>
 
-            <input type="date" wire:model="tglawal"/> <input type="date" wire:model="tglakhir"/>
+            <div class="flex w-full">
+                <input type="date" wire:model="tglawal"
+                    class="w-1/2 mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input mr-5"/> 
+                <input type="date" wire:model="tglakhir"
+                    class="w-1/2 mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"/>
+            </div>
+            <h4 class="text-gray-700 dark:text-gray-400 my-5">Total Penjualan : {{ number_format($total,0,',','.') }}</h4>
 
             <div>
                 <table class="w-full whitespace-no-wrap">
@@ -41,25 +47,25 @@
 
                         <tr class="ml-10 text-gray-700 dark:text-gray-400">
                                 <td class="px-4 py-3 text-sm">
-                                    {{ $invoices[0]['Tanggal'] }}
+                                    {{ date_create($invoices[0]->created_at)->format('d-m-Y') }}
                                 </td>
                                 <td class="px-4 py-3 text-sm">
-                                    {{ $invoices[0]['nana_pembayaran'] }}
+                                    {{ $invoices[0]->nama_pembayaran }}
                                 </td>
                                 <td class="px-4 py-3 text-sm">
-                                    {{ number_format($invoices[0]['total'],0,',','.') }}
+                                    {{ number_format($invoices[0]->total,0,',','.') }}
                                 </td>
                                 <td class="px-4 py-3 text-sm">
-                                    {{ number_format($invoices[0]['disc'],0,',','.') }}
+                                    {{ number_format($invoices[0]->disc,0,',','.') }}
                                 </td>
                                 <td class="px-4 py-3 text-sm">
-                                    {{ number_format($invoices[0]['grand_total'],0,',','.') }}
+                                    {{ number_format($invoices[0]->grandtotal,0,',','.') }}
                                 </td>
                                 <td class="px-4 py-3 text-sm">
-                                    {{ number_format($invoices[0]['jumlah_bayar'],0,',','.') }}
+                                    {{ number_format($invoices[0]->jumlah_bayar,0,',','.') }}
                                 </td>
                                 <td class="px-4 py-3 text-sm">
-                                    {{ number_format($invoices[0]['kembalian'],0,',','.') }}
+                                    {{ number_format($invoices[0]->kembalian,0,',','.') }}
                                 </td>
                         </tr>
 
@@ -67,13 +73,15 @@
 
                             <tr class="ml-10 text-gray-700 dark:text-gray-400">
                                 <td class="px-4 py-3 text-sm">
-                                    {{ $item['nama_menu'] }}
                                 </td>
                                 <td class="px-4 py-3 text-sm">
-                                    {{ $item['jumlah'] }}
+                                    {{ $invoice->nama_menu }}
                                 </td>
                                 <td class="px-4 py-3 text-sm">
-                                    {{ number_format($item['harga'],0,',','.') }}
+                                    {{ $invoice->jumlah }}
+                                </td>
+                                <td class="px-4 py-3 text-sm">
+                                    {{ number_format($invoice->harga,0,',','.') }}
                                 </td>
                             </tr>
 
@@ -81,7 +89,6 @@
                     @endforeach
                     </tbody>
                 </table>
-                {{ $menu->links() }}
             </div>
         </div>
         <div

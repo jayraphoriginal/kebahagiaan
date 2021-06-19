@@ -11,7 +11,7 @@ use App\Models\Category;
 class MenuComponent extends Component
 {
     use WithPagination;
-    public $menu_id, $category_id, $nama_menu, $harga;
+    public $menu_id, $category_id, $nama_menu, $harga, $picture;
     public $showmodal = false;
     public $categories;
 
@@ -41,6 +41,8 @@ class MenuComponent extends Component
     public function save(){
 
        $this->validate();
+
+       
 
        Menu::updateOrCreate(['id' => $this->menu_id],[
            'nama_menu' => $this->nama_menu,
