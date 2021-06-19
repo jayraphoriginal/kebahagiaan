@@ -3,6 +3,7 @@
 use App\Http\Controllers\InvoiceController;
 use App\Http\Livewire\CategoryComponent;
 use App\Http\Livewire\IngredientComponent;
+use App\Http\Livewire\Laporan;
 use App\Http\Livewire\MenuComponent;
 use App\Http\Livewire\OrderComponent;
 use App\Http\Livewire\PembayaranComponent;
@@ -43,5 +44,6 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     // Route::view('modals', 'modals')->name('modals');
     // Route::view('tables', 'tables')->name('tables');
     // Route::view('calendar', 'calendar')->name('calendar');
+    Route::get('laporan', Laporan::class)->name('laporan');
 
 });

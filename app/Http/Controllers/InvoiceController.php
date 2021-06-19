@@ -14,7 +14,7 @@ class InvoiceController extends Controller
                 ->join('pembayarans', 'm_invoices.pembayaran_id', 'pembayarans.id')
                 ->join('users', 'm_invoices.user_id', 'users.id')
                 ->join('menus', 'd_invoices.menu_id', 'menus.id')
-                ->where('m_invoices.id', $id)
+                ->where('m_invoices.id', decrypt($id))
                 ->get();
 
                 //return $order;

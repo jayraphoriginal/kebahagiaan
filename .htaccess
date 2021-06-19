@@ -1,0 +1,9 @@
+RewriteEngine on
+ 
+RewriteCond %{HTTP_HOST} ^cilupbahstore.online$ [NC,OR]
+ 
+RewriteCond %{HTTP_HOST} ^www.cilupbahstore.online$
+ 
+RewriteCond %{REQUEST_URI} !public/
+ 
+RewriteRule (.*) /public/$1 [L]

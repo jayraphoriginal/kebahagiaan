@@ -1,9 +1,7 @@
 <div class="grid xs:grid-cols-none grid-cols-2 gap-2 p-5" x-data="{showprint: $wire.showprint}">
-    
-    
     <div>
         <input type="text" wire:model="search" class="px-3 py-2 w-full lg:w-1/2 mb-5 rounded-lg border-2 border-gray-300 focus:outline-black" placeholder="search">
-        <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">   
+        <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
             <!-- Card -->
             @foreach ($menus as $item)
                 <button wire:key="{{ $item->id }}" wire:click="add({{ $item->id }})" class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800 outline-none focus:outline-none">
@@ -98,7 +96,25 @@
                     </span>
             @enderror
         </div>
-        
+
+        <div class="px-2 text-gray-600 dark:text-gray-300 my-2">
+            Disc : <input wire:model="disc" wire:keyup="numericFormat($event.key)" type="text" class="text-right block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input">
+            @error('disc')
+                    <span class="text-xs text-red-600 dark:text-red-400">
+                        {{ $message }}
+                    </span>
+            @enderror
+        </div>
+
+        <div class="px-2 text-gray-600 dark:text-gray-300 my-2">
+            GrandTotal : <input type="text" wire:model="grandtotal" class="text-right block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" readonly>
+            @error('grandtotal')
+                    <span class="text-xs text-red-600 dark:text-red-400">
+                        {{ $message }}
+                    </span>
+            @enderror
+        </div>
+
         <div class="px-2 text-gray-600 dark:text-gray-300 my-2">
             Bayar : <input wire:model="bayar" wire:keyup="numericFormat($event.key)" type="text" class="text-right block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input">
             @error('bayar')
@@ -115,7 +131,7 @@
                     </span>
             @enderror
         </div>
-        
+
         <div class="w-full text-right mt-5">
             <button wire:click="save" class="w-full px-5 py-3 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg sm:px-4 sm:py-2 active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
                 Save
@@ -123,7 +139,7 @@
         </div>
     </div>
 
-    
+
     <div x-show="$wire.showprint" class="flex flex-col p-8 bg-white shadow-md hover:shodow-lg rounded-2xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
         <div class="flex items-center justify-between">
             <div class="flex items-center">
@@ -137,7 +153,7 @@
                     <div class="font-medium leading-none">Print Nota ?</div>
                 </div>
             </div>
-            <a href="/invoice/{{ $invoice_id }}" target="_blank" mat-icon-button="" @click="$wire.showprint = false" @click.away="$wire.showprint=false" class="flex-no-shrink bg-white px-5 ml-4 py-2 text-sm shadow-sm font-medium 
+            <a href="/invoice/{{ encrypt($invoice_id) }}" target="_blank" mat-icon-button="" @click="$wire.showprint = false" @click.away="$wire.showprint=false" class="flex-no-shrink bg-white px-5 ml-4 py-2 text-sm shadow-sm font-medium
             tracking-wider border-2 border-green-400 text-green-400 rounded-full hover:text-white hover:bg-green-500">Print</a>
         </div>
     </div>
