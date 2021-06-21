@@ -6,14 +6,18 @@ use Livewire\Component;
 use App\Models\Menu;
 use Livewire\WithPagination;
 use App\Models\Category;
+use Livewire\WithFileUploads;
 
 
 class MenuComponent extends Component
 {
     use WithPagination;
+    use WithFileUploads;
     public $menu_id, $category_id, $nama_menu, $harga, $picture;
     public $showmodal = false;
     public $categories;
+    public $isinsert;
+    public $isupload;
 
     protected $rules = [
         'nama_menu' => 'required|min:2',
@@ -31,11 +35,23 @@ class MenuComponent extends Component
         ]);
     }
 
+    public function insertdata(){
+        $this->isinsert = true;
+        $this->isupload = false;
+    }
+    public function uploadgambar($id){
+        $this->isinsert = false;
+        $this->isupload = true;
+        $this->menu_id = $id;
+    }
+
     public function reset_data(){
         $this->menu_id='';
         $this->nama_menu='';
         $this->category_id='';
         $this->harga='';
+        $this->isupload = false;
+        $this->isinsert = false;
     }
 
     public function save(){
@@ -71,5 +87,22 @@ class MenuComponent extends Component
         $menu->delete();
         $this->reset_data();
     }
+
+    public function savegambar(){
+
+        $this->validate([
+            'picture' => 'image|max:2048', // 2MB Max
+        ]);
+
+        $nama = $this->picture->getClientOriginalName();
+        $this->picture->storeAs('public', $nama);
+
+        $menu = Menu::find($this->menu_id);
+        $menu['picture']=$nama;
+        $menu->save();
+
+        $this->picture = '';
+
+   }
    
 }

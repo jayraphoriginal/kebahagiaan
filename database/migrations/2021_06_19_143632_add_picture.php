@@ -14,7 +14,7 @@ class AddPicture extends Migration
     public function up()
     {
         Schema::table('menus', function (Blueprint $table) {
-            $table->string('picture');
+            $table->string('picture')->nullable();
         });
     }
 
