@@ -24,6 +24,11 @@
             <button @click="open = true" wire:click="insertdata" class="px-4 py-2 mb-4 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
                 Tambah menu
             </button>
+
+            <input type="text" 
+                wire:model="caridata"
+                placeholder = "Search"
+                class="block w-full mb-5 mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"/>
             <table class="w-full whitespace-no-wrap">
                 <thead>
                     <tr
@@ -39,14 +44,14 @@
                     <tr wire:key="{{ $item->id }}" class="text-gray-700 dark:text-gray-400">
                         @if (empty($item->picture))
                             <td class="px-4 py-3 text-sm">
-                                <div @click="open = true" wire:click="uploadgambar({{$item->id}})" class="inline-block p-2 mr-4 text-orange-500 bg-orange-100 rounded-full dark:text-orange-100 dark:bg-orange-500">
-                                    <img src="https://ui-avatars.com/api/?size=32?background=&&name={{ str_replace(' ', '+', $item->nama_menu) }}">
+                                <div @click="open = true" wire:click="uploadgambar({{$item->id}})" class="inline-block text-orange-500 bg-orange-100 rounded-full dark:text-orange-100 dark:bg-orange-500">
+                                    <img src="https://ui-avatars.com/api/?size=64?background=&&name={{ str_replace(' ', '+', $item->nama_menu) }}">
                                 </div>
                             </td>
                         @else
                             <td class="px-4 py-3 text-sm">
-                                <div @click="open = true" wire:click="uploadgambar({{$item->id}})" class="inline-block p-2 mr-4 text-orange-500 bg-orange-100 rounded-full dark:text-orange-100 dark:bg-orange-500">
-                                    <img src="{{ asset('/storage/'.$item->picture) }}" width="32px">
+                                <div @click="open = true" wire:click="uploadgambar({{$item->id}})" class="inline-block text-orange-500 bg-orange-100 rounded-full dark:text-orange-100 dark:bg-orange-500">
+                                    <img src="{{ asset('/storage/'.$item->picture) }}" width="64px">
                                 </div>
                             </td>
                         @endif

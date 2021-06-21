@@ -1,19 +1,22 @@
 <div class="grid xs:grid-cols-none grid-cols-2 gap-2 p-5" x-data="{showprint: $wire.showprint}">
     <div>
         <input type="text" wire:model="search" class="px-3 py-2 w-full lg:w-1/2 mb-5 rounded-lg border-2 border-gray-300 focus:outline-black" placeholder="search">
-        <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
+        <div class="grid gap-6 mb-8 md:grid-cols-3 xl:grid-cols-4">
             <!-- Card -->
             @foreach ($menus as $item)
-                <button wire:key="{{ $item->id }}" wire:click="add({{ $item->id }})" class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800 outline-none focus:outline-none">
-                    <div class="p-3 mr-4 text-orange-500 bg-orange-100 rounded-full dark:text-orange-100 dark:bg-orange-500">
-                        <img src="https://ui-avatars.com/api/?size=512?background=&&name={{ str_replace(' ', '+', $item->nama_menu) }}">
-                    </div>
+                <button wire:key="{{ $item->id }}" wire:click="add({{ $item->id }})" class="items-center p-0 bg-white rounded-lg shadow-xs dark:bg-gray-800 outline-none focus:outline-none">
+                    @if(empty($item->picture))
+                        <div class="text-orange-500 bg-orange-100 rounded-full dark:text-orange-100 dark:bg-orange-500">
+                            <img src="https://ui-avatars.com/api/?size=512?background=&&name={{ str_replace(' ', '+', $item->nama_menu) }}">
+                        </div>
+                    @else
+                        <div class="text-orange-500 bg-orange-100 rounded-full dark:text-orange-100 dark:bg-orange-500">
+                            <img src="{{ asset('/storage/'.$item->picture) }}" width="512">
+                        </div>
+                    @endif
                     <div>
-                        <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
+                        <p class="block m-2 text-sm font-medium text-gray-600 dark:text-gray-400">
                             {{ $item->nama_menu }}
-                        </p>
-                        <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
-                            {{ number_format($item->harga,0,',','.') }}
                         </p>
                     </div>
                 </button>

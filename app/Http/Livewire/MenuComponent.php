@@ -18,6 +18,7 @@ class MenuComponent extends Component
     public $categories;
     public $isinsert;
     public $isupload;
+    public $caridata;
 
     protected $rules = [
         'nama_menu' => 'required|min:2',
@@ -30,9 +31,15 @@ class MenuComponent extends Component
 
         $this->categories = Category::all();
 
-        return view('livewire.menu-component',[ 
-            'menu' => Menu::paginate(10),
-        ]);
+        if (empty($this->caridata)){
+            return view('livewire.menu-component',[ 
+                'menu' => Menu::paginate(10),
+            ]);
+        }else{
+            return view('livewire.menu-component',[ 
+                'menu' => Menu::where('nama_menu', 'like', '%'.$this->caridata.'%')->paginate(10),
+            ]);
+        }
     }
 
     public function insertdata(){
