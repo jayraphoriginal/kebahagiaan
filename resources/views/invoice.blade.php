@@ -71,7 +71,7 @@
 <body>
     <div class="container">
         <div class="header" style="margin-bottom: 30px;">
-            <img src="{{ asset('/img/logogray.png') }}" width="100px"/>
+            <img src="{{ asset('/img/logogray.png') }}" width="150px"/>
             <h4>Jl Amphibi, sekip ujung no 2205</h4>
         </div>
         <hr>
