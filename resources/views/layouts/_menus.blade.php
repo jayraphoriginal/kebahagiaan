@@ -43,6 +43,7 @@
                 <span class="ml-4">Order</span>
             </a>
         </li>
+
         <li class="relative px-6 py-3">
             {!! request()->routeIs('pembayaran') ? '<span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg" aria-hidden="true"></span>' : '' !!}
             <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200" href="{{route('pembayaran')}}">
@@ -51,6 +52,14 @@
                     </path>
                 </svg>
                 <span class="ml-4">Pembayaran</span>
+            </a>
+        </li>
+
+        <li class="relative px-6 py-3">
+            {!! request()->routeIs('stokbahan') ? '<span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg" aria-hidden="true"></span>' : '' !!}
+            <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200" href="{{route('stokbahan')}}">
+                <svg class="h-5 w-5 width="20" height="20" viewBox="0 0 20 20" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <line x1="8" y1="21" x2="16" y2="21" />  <line x1="12" y1="15" x2="12" y2="21" />  <path d="M16 4l1 6a5 5 0 0 1 -10 0l1 -6z" /></svg>
+                <span class="ml-4">Stok Bahan</span>
             </a>
         </li>
 

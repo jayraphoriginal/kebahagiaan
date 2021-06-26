@@ -51,12 +51,6 @@ class IngredientComponent extends Component
         $this->nama_bahan = $bahan->nama_bahan;
     }
 
-    public function delete($id)
-    {
-        $bahan = Ingredient::find($id); //BUAT QUERY UTK PENGAMBILAN DATA
-        //LALU ASSIGN KE DALAM MASING-MASING PROPERTI DATANYA
-        $bahan->delete();
-        $this->reset_data();
-    }
+    
 
 }

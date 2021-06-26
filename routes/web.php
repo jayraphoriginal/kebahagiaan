@@ -2,11 +2,13 @@
 
 use App\Http\Controllers\InvoiceController;
 use App\Http\Livewire\CategoryComponent;
+use App\Http\Livewire\CategoryIngredientComponent;
 use App\Http\Livewire\IngredientComponent;
 use App\Http\Livewire\Laporan;
 use App\Http\Livewire\MenuComponent;
 use App\Http\Livewire\OrderComponent;
 use App\Http\Livewire\PembayaranComponent;
+use App\Http\Livewire\StokBahanComponent;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -45,5 +47,6 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     // Route::view('tables', 'tables')->name('tables');
     // Route::view('calendar', 'calendar')->name('calendar');
     Route::get('laporan', Laporan::class)->name('laporan');
-
+    Route::get('stokbahan', StokBahanComponent::class)->name('stokbahan');
+    Route::get('komposisi/{category_id}', CategoryIngredientComponent::class)->name('categoryingredient');
 });

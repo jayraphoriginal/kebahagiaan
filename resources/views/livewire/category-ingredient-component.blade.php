@@ -5,8 +5,9 @@
 
     <!-- With actions -->
     <h4 class="mb-4 text-lg font-semibold text-gray-600 dark:text-gray-300">
-        Data category
+        Komposisi {{ $category }}
     </h4>
+    
 
     <div class="w-full overflow-hidden rounded-lg shadow-xs p-3">
         <div class="w-full overflow-x-auto">
@@ -22,36 +23,29 @@
             </div>
 
             <button @click="open = true" class="px-4 py-2 mb-4 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
-                Tambah category
+                Tambah Bahan
             </button>
+
             <table class="w-full whitespace-no-wrap">
                 <thead>
                     <tr
                         class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                        <th class="px-4 py-3">category</th>
+                        <th class="px-4 py-3">Nama Bahan</th>
+                        <th class="px-4 py-3">Jumlah</th>
                         <th class="px-4 py-3">Actions</th>
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                    @foreach ($categories as $item)
+                    @foreach ($komposisi as $item)
                     <tr wire:key="{{ $item->id }}" class="text-gray-700 dark:text-gray-400">
                         <td class="px-4 py-3 text-sm">
-                            {{ $item->category }}
+                            {{ $item->nama_bahan }}
                         </td>
-                        <td class="px-4 py-3">
+                        <td class="px-4 py-3 text-sm">
+                            {{ $item->jumlah }}
+                        </td>
+                        <td class="px-4 py-3 text-sm">
                             <div class="flex items-center space-x-4 text-sm">
-                                <button
-                                    @click="open = true"
-                                    wire:click="edit({{ $item->id }})"
-                                    class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
-                                    aria-label="Edit">
-                                    <svg class="w-5 h-5" aria-hidden="true" fill="currentColor"
-                                        viewBox="0 0 20 20">
-                                        <path
-                                            d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z">
-                                        </path>
-                                    </svg>
-                                </button>
                                 <button
                                 onclick="confirm('Hapus Data?') || event.stopImmediatePropagation()" wire:click="delete({{ $item->id }})"
                                     class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
@@ -63,16 +57,6 @@
                                             clip-rule="evenodd"></path>
                                     </svg>
                                 </button>
-                                <a
-                                    href="/komposisi/{{ encrypt($item->id) }}"
-                                    class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
-                                    aria-label="Komposisi">
-                                    <svg class="h-5 w-5" 
-                                        viewBox="0 0 20 20" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"> 
-                                        <rect x="4" y="4" width="16" height="16" rx="2" />  
-                                        <line x1="12" y1="4" x2="12" y2="20" />
-                                    </svg>
-                                </a>
                             </div>
                         </td>
                     </tr>
@@ -82,7 +66,6 @@
         </div>
         <div
             class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
-            {{ $categories->links() }}
         </div>
     </div>
 
@@ -101,16 +84,27 @@
             <div class="mt-4 mb-6">
                 <!-- Modal title -->
                 <p class="mb-3 text-lg font-semibold text-gray-700 dark:text-gray-300">
-                    Input category
+                    Komposisi
                 </p>
+                <label class="block text-sm">
+                    <span class="text-gray-700 dark:text-gray-400">Nama Bahan</span>
+                    <select 
+                    wire:model="bahan_id" 
+                    class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input">
+                        <option value="">-- Pilih Bahan --</option>
+                        @foreach($bahan as $data)
+                        <option value="{{ $data->id }}">{{ $data->nama_bahan }}</option>
+                        @endforeach
+                    </select>
+                </label>
                 <!-- Modal description -->
                 <label class="block text-sm">
-                    <span class="text-gray-700 dark:text-gray-400">Nama category</span>
-                    <input wire:model="category" class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" />
-                    @error('nama_category')
-                    <span class="text-xs text-red-600 dark:text-red-400">
-                        {{ $message }}
-                    </span>
+                    <span class="text-gray-700 dark:text-gray-400">Jumlah</span>
+                    <input wire:model="jumlah" class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"/>
+                    @error('jumlah')
+                        <span class="text-xs text-red-600 dark:text-red-400">
+                            {{ $message }}
+                        </span>
                     @enderror
                 </label>
             </div>

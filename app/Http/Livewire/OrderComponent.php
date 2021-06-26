@@ -9,6 +9,9 @@ use DB;
 use App\Models\Pembayaran;
 use App\Models\MInvoice;
 use App\Models\DInvoice;
+use App\Models\Komposisi;
+use App\Models\Ingredient;
+
 use Exception;
 
 class OrderComponent extends Component
@@ -157,6 +160,15 @@ class OrderComponent extends Component
                 $detail['jumlah'] = $tmp->jumlah;
                 $detail['harga'] = $tmp->harga;
                 $detail->save();
+
+                $menu = Menu::find($tmp->menu_id);
+
+                $komposisis = Komposisi::where('category_id', $menu->category_id)->get();
+                foreach($komposisis as $komposisi){
+                    $bahan = Ingredient::find($komposisi->ingredient_id);
+                    $bahan['stok'] = $bahan['stok'] - $tmp->jumlah;
+                    $bahan->save();
+                }
             }
 
             DB::table('tmp_orders')->where('user_id',Auth()->user()->id)->delete();

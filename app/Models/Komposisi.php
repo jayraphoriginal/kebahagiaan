@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Komposisi extends Model
 {
     use HasFactory;
+    protected $fillable = ['category_id', 'ingredient_id', 'jumlah'];
 }
