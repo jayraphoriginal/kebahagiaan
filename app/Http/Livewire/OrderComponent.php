@@ -11,6 +11,7 @@ use App\Models\MInvoice;
 use App\Models\DInvoice;
 use App\Models\Komposisi;
 use App\Models\Ingredient;
+use App\Models\PemakaianCup;
 
 use Exception;
 
@@ -168,6 +169,13 @@ class OrderComponent extends Component
                     $bahan = Ingredient::find($komposisi->ingredient_id);
                     $bahan['stok'] = $bahan['stok'] - $tmp->jumlah;
                     $bahan->save();
+
+                    $pemakaiancup = new PemakaianCup();
+                    $pemakaiancup['d_invoice_id'] = $detail->id;
+                    $pemakaiancup['ingredient_id'] = $bahan->id;
+                    $pemakaiancup['jumlah'] = $tmp->jumlah;
+                    $pemakaiancup->save();
+                    
                 }
             }
 

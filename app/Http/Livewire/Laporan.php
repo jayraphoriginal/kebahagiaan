@@ -11,6 +11,7 @@ class Laporan extends Component
     public $tglakhir;
     public $laporan;
     public $total;
+    public $total_bahan;
 
     public function render()
     {
@@ -27,7 +28,9 @@ class Laporan extends Component
         ->whereBetween(DB::raw('date(m_invoices.created_at)'),array(date_create($this->tglawal)->format('Y-m-d'),date_create($this->tglakhir)->format('Y-m-d')))
         ->sum('grandtotal');
 
-
+        $this->total_bahan = DB::table('pemakaian_cups')
+        ->whereBetween(DB::raw('date(pemakaian_cups.created_at)'),array(date_create($this->tglawal)->format('Y-m-d'),date_create($this->tglakhir)->format('Y-m-d')))
+        ->sum('jumlah');        
 
         return view('livewire.laporan');
     }

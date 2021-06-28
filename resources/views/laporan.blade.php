@@ -20,13 +20,17 @@
                 @endif
             </div>
 
-            <div class="flex w-full">
+            <div class="flex w-full gap-5">
                 <input type="date" wire:model="tglawal"
-                    class="w-1/2 mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input mr-5"/> 
+                    class="w-1/2 mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"/> 
                 <input type="date" wire:model="tglakhir"
                     class="w-1/2 mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"/>
             </div>
-            <h4 class="text-gray-700 dark:text-gray-400 my-5">Total Penjualan : {{ number_format($total,0,',','.') }}</h4>
+            <div class="flex w-full gap-5">
+                <h4 class="text-gray-700 dark:text-gray-400 my-5">Total Penjualan : {{ number_format($total,0,',','.') }}</h4>
+                <h4 class="text-gray-700 dark:text-gray-400 my-5">Total Bahan : {{ number_format($total_bahan,0,',','.') }}</h4>
+                
+            </div>
 
             <div>
                 <table class="w-full whitespace-no-wrap">
