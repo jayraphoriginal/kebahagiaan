@@ -27,7 +27,7 @@
                             class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
                             <th class="px-4 py-3">Nama Bahan</th>
                             <th class="px-4 py-3">Stok</th>
-                            <th class="px-4 py-3">Actions</th>
+                            <th class="px-4 py-3">@if(Auth()->user()->level == 'owner') Actions @endif</th>
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
@@ -40,6 +40,7 @@
                                 {{ $item->stok }}
                             </td>
                             <td class="px-4 py-3">
+                                @if(Auth()->user()->level == 'owner')
                                 <div class="flex items-center space-x-4 text-sm">
                                     <button
                                         @click="open = true"
@@ -49,6 +50,7 @@
                                         <svg class="h-5 w-5  viewBox="0 0 20 20"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round">  <line x1="12" y1="5" x2="12" y2="19" />  <line x1="5" y1="12" x2="19" y2="12" /></svg>
                                     </button>
                                 </div>
+                                @endif
                             </td>
                         </tr>
                         @endforeach
